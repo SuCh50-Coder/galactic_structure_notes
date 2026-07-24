@@ -3,7 +3,7 @@ site_url: https://sitename.example
 theme:
   name: material
   font:
-    text: Lexend
+    text: Fira Sans
     code: Fira Code
   icon:
     logo: simple/starship
@@ -52,7 +52,15 @@ markdown_extensions:
 
   - admonition
   - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
 
+extra_javascript:
+  - styles/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - styles/extra.css
 extra:
   social:
     - icon: material/web
