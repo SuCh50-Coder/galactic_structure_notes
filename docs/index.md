@@ -6,7 +6,7 @@
 
 Nomoskar :folded_hands:
 
-My name is Susnata Chattopadhyay. I am writing this documentation to note all that I learned during my journey of MS Thesis. Our journey official starts in the summer of 2026, amidst the ongoing national student protests against a regime which systematically suppressed the Education System and research of basic sciences. The month is July.
+My name is Susnata Chattopadhyay. I am writing this documentation to note all that I learned during my journey of MS Thesis. Our journey official starts in the summer of 2026, amidst the ongoing national student protests against a crippled education system and research of basic sciences. The month is July.
 
 !!! quote "The road begins..."
 
