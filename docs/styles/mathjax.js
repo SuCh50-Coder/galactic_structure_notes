@@ -10,7 +10,7 @@ window.MathJax = {
       pdv: ["\\frac{\\partial #1}{\\partial #2}", 2],
       abs: ["\\left|#1\\right|", 1],
       norm: ["\\left\\lVert#1\\right\\rVert", 1],
-      qty: ["\\left #1\ \right", 1],
+      qty: ["\\left#1\\right", 1],
       dd: ["\\mathrm{d}", 0],
       vb: ["\\mathbf{#1}", 1],
       expval: ["\\left\\langle#1\\right\\rangle", 1],
