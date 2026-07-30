@@ -214,8 +214,7 @@ p_z \frac{\partial \Phi}{\partial R}
 
 
 
-!!! note "Symmetry Considerations"
-    The integrals involving derivatives with respect to $p_R$ and $p_\phi$ vanish when multiplied by $p_z$ because $p_z$ acts as a constant relative to those partial derivatives during integration by parts, and the boundary terms at $p \to \pm\infty$ go to zero.
+> **Symmetry Considerations** The integrals involving derivatives with respect to $p_R$ and $p_\phi$ vanish when multiplied by $p_z$ because $p_z$ acts as a constant relative to those partial derivatives during integration by parts, and the boundary terms at $p \to \pm\infty$ go to zero.
 
 !!! success "Axisymmetric, vertical Jeans Equation"
 
@@ -324,3 +323,106 @@ Writing in terms of log-slope, we obtain our final expression
     + \frac{\expval{v_{R}^2}}{R} \left[ 1 - \gamma_{\nu,R} - \gamma_{\expval{v_{R}^2},R} \right]
     - \frac{\expval{v_{R}v_{z}}}{z} \left[ \gamma_{\nu,z} + \gamma_{\expval{v_{R}v_{z}},z} \right]
     \end{equation}
+
+
+At last, I want to show the readers, how are we writing  Eq. ($\ref{eq:vert_Jeans}$) in velocity coordinates from Eq. ($\ref{eq:axisymm_cbe}$) which is written in generalized coordinate basis. This is **very important**.
+
+!!! danger "Chain rule of Multivariable Calculus"
+
+    > To learn this topic more rigorously, check out this [playlist](https://youtube.com/playlist?list=PLBh2i93oe2qtErGZonmtjF73jFhibdGNw&si=h5MtiqnhtF83mpvi)
+
+    We have, 
+
+    $$ p_R \frac{\partial f}{\partial R} 
+    + p_z \frac{\partial f}{\partial z} 
+    + \left( \frac{p_\phi^2}{R^3} - \frac{\partial \Phi}{\partial R} \right) \frac{\partial f}{\partial p_R} 
+    - \frac{\partial \Phi}{\partial z} \frac{\partial f}{\partial p_z} 
+    = 0$$
+
+    In the above equation, we have the partial derivatives wrt momentum coordinates. Our target is to transform them into velocity coordinates. 
+ 
+    > **Problem Setup**
+
+    Let us define
+
+    - $\mathcal{P} = \mathrm{span} \{ ( \vb{x}, \vb{p}) | \vb{x}, \vb{p} \in \real^3\}$ as the phase space.
+    - $\mathcal{C} =  \mathrm{span} \{ ( \vb{x}, \vb{v}) | \vb{x}, \vb{v} \in \real^3\}$ as the configuration space.
+
+    We have, $f \to f(R, \phi, z, p_R, p_\phi , p_z) \equiv f( \vb{x}, \vb{p})$ as the _distribution function in phase space_ .
+
+    $$ f : \mathcal{P} \to \real$$
+
+    We define another function $h : \mathcal{C} \to \real$, as the _distribution function in configuration space_, such that $f$ and $h$ are numerically equal but they differ in the sense that they work in different domains. Furthermore, 
+
+    $$ \nu (\vb{x}) = \int \dd ^3 \vb{p} f( \vb{x}, \vb{p}) = \int \dd ^3 \vb{v} h( \vb{x}, \vb{v})  $$
+
+    Now, we would like to construct a function which takes a point in phase space and return it's corresponding point in configuration space, by the following map, 
+    <center>
+        $p_R = v_R$,  $p_{\phi} = R v_{\phi}$,  and $p_z = v_z$
+    </center>
+    In other words
+
+    $$ ( \vb{x}, \vb{p}) \equiv (R, \phi, z, p_R, p_\phi , p_z) \mapsto (R, \phi, z, p_R, \frac{p_\phi}{R} , p_z) \equiv (\vb{x}, \vb{v}) $$ 
+
+    > This is a **bijective** map!
+
+    A natural choice is, 
+
+    $$ g : \mathcal{P} \to \mathcal{C}$$
+
+    But since both  $\mathcal{P} , \mathcal{C} \cong \real^6$. We can also write it as $g : \real^6 \to \real^6$.
+
+    Ok!, now consider evaluation at some point in phase space $(\vb{x}_0, \vb{p}_0) \in \mathcal{P}$. Then
+    
+    \begin{align}
+       g(\vb{x}_0, \vb{p}_0) &= (\vb{x}_0, \vb{v}_0) \\
+       \text{also recall, } f(\vb{x}_0, \vb{p}_0) &= h(\vb{x}_0, \vb{v}_0) \\
+       f(\vb{x}_0, \vb{p}_0) &= h(g(\vb{x}_0, \vb{p}_0))\\
+       \implies f(\vb{x}_0, \vb{p}_0) &= h \circ g (\vb{x}_0, \vb{p}_0)\\
+    \end{align}
+
+    Since, this holds true for any arbitrary $(\vb{x}_0, \vb{p}_0) \in \mathcal{P}$, we can write
+
+    $$ f = h \circ g $$
+
+    Further, WLOG let's assume 
+    
+    - $f$ is (totally) differentiable at $(\vb{x}_0, \vb{p}_0)$
+    - $h$ is (totally) differentiable at $g(\vb{x}_0, \vb{p}_0) = (\vb{x}_0, \vb{v}_0)$
+
+    Then using the chain rule of multivariable calculus, we can write
+
+    \begin{align*}
+        f'(\vb{x}_0, \vb{p}_0) &= h'(g(\vb{x}_0, \vb{p}_0)) g'(\vb{x}_0, \vb{p}_0)\\
+                            &= h'(\vb{x}_0, \vb{v}_0) g'(\vb{x}_0, \vb{p}_0)\\
+                            \text{in Jacobian Matrix notation}\\ 
+                            J_f (\vb{x}_0, \vb{p}_0) &= J_h (\vb{x}_0, \vb{v}_0) \cdot J_g (\vb{x}_0, \vb{p}_0)
+    \end{align*}
+    
+    where
+
+    $$ J_f (\vb{x}_0, \vb{p}_0) =  \bigg[ \pdv{f}{R} \ \pdv{f}{\phi} \ \dots \ \pdv{f}{p_\phi} \ \pdv{f}{p_z} \bigg]_{(\vb{x}_0, \vb{p}_0)}$$
+
+    $$ J_h (\vb{x}_0, \vb{v}_0) =  \bigg[ \pdv{h}{R} \ \pdv{h}{\phi} \ \dots \ \pdv{h}{v_\phi} \ \pdv{h}{v_z} \bigg]_{(\vb{x}_0, \vb{v}_0)}$$
+
+    hence, $J_g (\vb{x}_0, \vb{p}_0) \in M_6 (\real)$ (i.e a $6 \times 6$ square matrix in real field/ with real entries)
+
+    $$
+    J_g = \begin{pmatrix}
+    \partial_R g_1 & \partial_\phi g_1 & \partial_z g_1 & \partial_{p_R} g_1 & \partial_{p_\phi} g_1 & \partial_{p_z} g_1 \\[0.5em]
+    \partial_R g_2 & \partial_\phi g_2 & \partial_z g_2 & \partial_{p_R} g_2 & \partial_{p_\phi} g_2 & \partial_{p_z} g_2 \\[0.5em]
+    \partial_R g_3 & \partial_\phi g_3 & \partial_z g_3 & \partial_{p_R} g_3 & \partial_{p_\phi} g_3 & \partial_{p_z} g_3 \\[0.5em]
+    \partial_R g_4 & \partial_\phi g_4 & \partial_z g_4 & \partial_{p_R} g_4 & \partial_{p_\phi} g_4 & \partial_{p_z} g_4 \\[0.5em]
+    \partial_R g_5 & \partial_\phi g_5 & \partial_z g_5 & \partial_{p_R} g_5 & \partial_{p_\phi} g_5 & \partial_{p_z} g_5 \\[0.5em]
+    \partial_R g_6 & \partial_\phi g_6 & \partial_z g_6 & \partial_{p_R} g_6 & \partial_{p_\phi} g_6 & \partial_{p_z} g_6
+    \end{pmatrix}
+    $$
+
+    $$\downarrow$$
+
+    $$[J_g]_{ij} = \pdv{g_i}{X^j}$$
+     
+    > **Note** $g_i$ denotes the $i$-th component of $g$. 
+
+
+

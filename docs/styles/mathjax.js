@@ -14,6 +14,7 @@ window.MathJax = {
       dd: ["\\mathrm{d}", 0],
       vb: ["\\mathbf{#1}", 1],
       expval: ["\\left\\langle#1\\right\\rangle", 1],
+      real: ["\\mathbb{R}", 0],
     }
   
   },
