@@ -231,7 +231,6 @@ p_z \frac{\partial \Phi}{\partial R}
     \label{eq:vert_Jeans}
     \end{equation}
 
-<!-- HOW ??? -->
 
 In the previous page, recall that we defined the vertical force per unit mass as
 
@@ -327,9 +326,11 @@ Writing in terms of log-slope, we obtain our final expression
 
 At last, I want to show the readers, how are we writing  Eq. ($\ref{eq:vert_Jeans}$) in velocity coordinates from Eq. ($\ref{eq:axisymm_cbe}$) which is written in generalized coordinate basis. This is **very important**.
 
-!!! danger "Chain rule of Multivariable Calculus"
+## **Chain rule of Multivariable Calculus**
 
-    > To learn this topic more rigorously, check out this [playlist](https://youtube.com/playlist?list=PLBh2i93oe2qtErGZonmtjF73jFhibdGNw&si=h5MtiqnhtF83mpvi)
+> To learn this topic more rigorously, check out this [playlist](https://youtube.com/playlist?list=PLBh2i93oe2qtErGZonmtjF73jFhibdGNw&si=h5MtiqnhtF83mpvi)
+
+??? danger " Transformation from phase space to configuration space"
 
     We have, 
 
@@ -424,5 +425,40 @@ At last, I want to show the readers, how are we writing  Eq. ($\ref{eq:vert_Jean
      
     > **Note** $g_i$ denotes the $i$-th component of $g$. 
 
+    So, let's look at how $\pdv{f}{R}$ changes in the new representation. On simple matrix multiplication, the first component on LHS
+
+    \begin{align}
+        \bigg( \pdv{f}{R} \bigg)_{\vb{p}} &= \bigg( \pdv{h}{R} \bigg)_{\vb{v}} \bigg( \pdv{g_1}{R}\bigg) + \bigg( \pdv{h}{\phi} \bigg)_{\vb{v}} \bigg( \pdv{g_2}{R}\bigg) + \dots \\
+        & \bigg( \pdv{h}{v_\phi} \bigg)_{\vb{v}} \bigg( \pdv{g_5}{R}\bigg) + \bigg( \pdv{h}{v_z} \bigg)_{\vb{v}} \bigg( \pdv{g_6}{R}\bigg)
+    \end{align}
+
+    Notice, the only nonzero elements of $J_g$ in the above equation are -
+
+    \[ \pdv{g_1}{R} = \pdv{R}{R} = 1  \text{ and } \pdv{g_5}{R} = p_{\phi} \pdv{}{R} (1/R) = - \frac{v_{\phi}}{R}\]
+
+    Therefore,
+
+    \begin{equation}
+        \boxed{\bigg( \pdv{f}{R} \bigg)_{\vb{p}} = \bigg( \pdv{h}{R} \bigg)_{\vb{v}} - \frac{v_{\phi}}{R} \bigg( \pdv{h}{v_\phi} \bigg)_{\vb{v}}}
+    \end{equation}
+
+    Likewise, it is straightforward to see (since the remaining are just identity maps)
+
+    \begin{align}
+        \bigg( \pdv{f}{z} \bigg)_{\vb{p}} &= \bigg( \pdv{h}{z} \bigg)_{\vb{v}} \\
+        \bigg( \pdv{f}{p_R} \bigg)_{\vb{p}} &= \bigg( \pdv{h}{p_R} \bigg)_{\vb{v}} \\
+        \bigg( \pdv{f}{p_z} \bigg)_{\vb{p}} &= \bigg( \pdv{h}{p_z} \bigg)_{\vb{v}} \\
+        \bigg( \pdv{\Phi}{R} \bigg)_{\vb{p}} &= \bigg( \pdv{\Phi}{R} \bigg)_{\vb{v}} \\
+    \end{align}
+
+    So, the first term transforms in configuration space as
+
+    \[ \frac{\partial (\nu \langle p_R p_z \rangle)}{\partial R} =  \int \dd^3\vb{p} \ p_z p_R \left( \frac{\partial f}{\partial R} \right)_{\vb{p}} \to \int \dd^3\vb{v} \ v_z v_R \bigg[  \bigg( \pdv{h}{R} \bigg)_{\vb{v}} - \frac{v_{\phi}}{R} \bigg( \pdv{h}{v_\phi} \bigg)_{\vb{v}} \bigg] = \frac{1}{R} \frac{\partial ( R \nu \langle v_R v_z \rangle)}{\partial R} \ \ \ \checkmark \]
+
+    The rest of the terms evaluates in exactly the same way and we **finally** reach at Eq. ($\ref{eq:vert_Jeans}$). **Uff Babah!**
+
+    $$ \frac{1}{R} \frac{\partial ( R \nu \langle v_R v_z \rangle)}{\partial R}  + \frac{\partial (\nu \langle v_z^2 \rangle)}{\partial z} + \nu \frac{\partial \Phi}{\partial z} = 0$$
+
+    $$\boxed{}$$
 
 
