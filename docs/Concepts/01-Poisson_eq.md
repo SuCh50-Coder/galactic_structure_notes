@@ -135,10 +135,11 @@ to obtain,
 
 \begin{equation}
 \boxed{
--2\pi G \, \Sigma(R, z) = K_z(R, z) + \int_{0}^{+z} \frac{1}{R} \frac{\partial \big(R F_R \big)}{\partial R} \, dz} 
+-2\pi G \, \Sigma(R, z) = K_z(R, z) + \int_{0}^{+z} \frac{1}{R} \frac{\partial \big(R F_R \big)}{\partial R} \, \dd z'} 
 \end{equation}
 
 This is known as the integrated form of Poissonian Equation, for an axisymmetric galactic disc.
 
 !!! tip "Next step"
     In the next page, we will learn how we can use the Jeans equations to relate the moments of the distribution function of a population, such as its density and velocity moments, to the gravitational potential in which it moves $\Phi (R,z)$. 
+    
