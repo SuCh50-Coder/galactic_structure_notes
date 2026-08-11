@@ -248,7 +248,6 @@ Now, our target is to write $K_z$ in terms of _logarithmic slopes_.
 !!! note "Log-slope"
     We define the **log-slope** of some quantity $Q$ of the population with respect to some coordinate $x$ (= $R$ or $z$).
 
-
     $$\gamma_{Q,x} \equiv -\frac{\partial \ln [Q(x)]}{\partial \ln [x]} = -\frac{x}{Q} \frac{\partial Q}{\partial x}$$
 
     Rearranging, 

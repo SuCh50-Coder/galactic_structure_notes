@@ -1,4 +1,5 @@
 # **Hagen & Helmi (2018)**
+## **Title:** The vertical force in the solar neighbourhood using red clump stars in TGAS and RAVE - _Constraints on the local dark matter density_ 
 
 [![DOI](https://img.shields.io/badge/DOI-10.1051%2F0004--6361%2F201832903-blue?style=for-the-badge&logo=doi&logoColor=white)](https://doi.org/10.1051/0004-6361/201832903)
 
@@ -251,10 +252,159 @@ Substituting these log-slopes into Eq. ($\ref{eq:simplif_poisson}$) ($z>0$)-
 &= -\frac{\sigma(v_z)^2}{h_z} + \frac{\partial \sigma(v_z)^2}{\partial z} + \mathrm{cov} (v_R, v_z) \left[ \frac{1}{R} - \frac{2}{h_R} \right]
 \end{align*}
 
+!!! info "More _safe_ form?"
+
+    If we don't assume $\expval{v_R} = \expval{v_z} = 0$. Then we need not replaced the quantitites by the variance. In that case, the equation will look like- 
+
+    \begin{equation}
+        -2\pi G\Sigma(R, z) \approx K_z =  -\frac{\expval{v_z^2}}{h_z} + \frac{\partial \expval{v_z^2}}{\partial z} +  \expval{v_R v_z} \left[ \frac{1}{R} - \frac{2}{h_R} \right]
+    \label{eq:Kz_Safe}
+    \end{equation}
+
+
 > This final equation can now be applied to multiple populations that satisfy the assumptions described.
 
-!!! note "Future Precision"
+??? note "Future Precision"
     The authors emphasize that as data quality improves (e.g., with Gaia DR2), future studies should aim to solve the full set of equations without dropping terms from the Poisson equation, particularly when investigating larger Galactic heights.
 
 
+
 ## **Data Analysis**
+
+Because the goal is to measure the contribution of dark matter more reliably, the authors focus on the bins at large Galactic heights,
+since for small $z$ the baryons (are expected to) dominate the gravitational force. So they chose to explore only those bins for
+which the central $z$-coordinate satisfies $|z| \geq 0.6$ kpc.
+
+They calculate the vertical force at $R = R_{\odot}$ (solar nbd) for each component of the disk. 
+
+\[ K_z ( R_{\odot}, z) = K_{z , {\rm thin}} ( R_{\odot}, z) + K_{z , {\rm thick}}( R_{\odot}, z)\]
+
+If we use the equations of $\ref{eq:Kz_Safe}$, we will get
+
+\begin{align*}
+K_{z , {\rm thin}} &=  -\frac{\expval{v_z^2}_{(R_{\odot}, z)}}{h_{z , {\rm thin}}} + \frac{\partial \expval{v_z^2}}{\partial z} \bigg|_{(R_{\odot}, z)} +  \expval{v_R v_z}|_{(R_{\odot}, z)} \left[ \frac{1}{R_{\odot}} - \frac{2}{h_{R , {\rm thin}}} \right]\\
+K_{z , {\rm thick}} &=  -\frac{\expval{v_z^2}_{(R_{\odot}, z)}}{h_{z , {\rm thick}}} + \frac{\partial \expval{v_z^2}}{\partial z} \bigg|_{(R_{\odot}, z)} +  \expval{v_R v_z}|_{(R_{\odot}, z)} \left[ \frac{1}{R_{\odot}} - \frac{2}{h_{R , {\rm thick}}} \right]
+\end{align*}
+
+The authors have used 
+
+|  |  |
+| :--- | :--- |
+| $h_{R , {\rm thick}} = h_{R , {\rm thin}}$ | 2.5 kpc  |
+| $h_{z , {\rm thin}}$ | 0.28 kpc |
+| $h_{z , {\rm thick}}$ | 1.12 kpc |
+
+In Sections 3.2 and 3.2.1, the authors describe their methodology for handling data uncertainties, extracting intrinsic kinematic moments, and defining the specific stellar populations used to measure the local dark matter density.
+
+
+The authors now implement a statistical framework to account for distance uncertainties and measurement errors in the Red Clump (RC) sample:
+
+*   **Distance Error Simulation:** To account for uncertainties in stellar distances, the authors generate **1000 realizations** of the absolute $K_S$-band magnitude for each RC star. These are drawn from a Gaussian distribution based on their previously calibrated mean ($M_{K_S} = -1.60$) and dispersion ($0.1$ mag).
+
+??? note "Elaborated"
+
+    To account for the significant impact of distance uncertainties on their kinematic analysis, the authors employ a **Monte Carlo-style simulation** to create a robust statistical foundation for their measurements.
+
+    The process follows these specific steps:
+
+    1. **Establishing the Probability Distribution**
+    First, the authors define the statistical properties of the Red Clump (RC) stars' absolute magnitude based on their earlier calibration..
+        *   **Mean ($\mu$):** $-1.60$ mag in the $K_S$-band.
+        *   **Dispersion ($\sigma$):** $0.1$ mag.
+        *   **Distribution:** They assume a **Gaussian (Normal) distribution**, $N(-1.60, 0.1^2)$, to represent the likelihood of a star's true absolute magnitude.
+
+    1. **Generating 1000 Realizations**
+    For every individual star in the RC sample (26,653 stars total), the authors "draw" or sample a value for its absolute magnitude ($M_{K_S}$) from this Gaussian distribution 1,000 times. 
+
+        *   This results in **1,000 unique versions of the entire dataset**, where each version (realization) assigns a slightly different absolute magnitude to each star.
+
+    1. **Calculating Distances** Because the distance ($d$) to a star is directly related to its apparent magnitude ($m$) and absolute magnitude ($M$) through the distance modulus formula ($m - M = 5 \log_{10}(d) - 5$), varying the absolute magnitude automatically varies the calculated distance.
+        *   A dispersion of $0.1$ mag in absolute magnitude translates to approximately a **5% error in distance**.
+        *   Consequently, each of the 1,000 realizations provides a different distance estimate for every star in the sample.
+
+    1. **Coordinate Transformation and Error Propagation**
+    For each of these 1,000 realizations, the authors perform the following:
+
+        *   **Spatial Mapping:** They transform the stars' observables (sky positions and distances) into a **Galactocentric cylindrical coordinate frame** ($R, \phi, z$).
+        *   **Velocity Calculation:** They combine the distances with proper motions (from TGAS) and radial velocities (from RAVE) to calculate the velocities ($v_R, v_\phi, v_z$).
+        *   **Error Integration:** They propagate the actual measurement errors for proper motions and radial velocities within each specific realization.
+
+    1. **Final Statistical Synthesis**
+    After processing all 1,000 realizations independently—including binning the stars in $z$, removing outliers, and solving for intrinsic kinematic moments—the authors compute the **mean and dispersion of these moments across all realizations**. This final "mean profile" represents the kinematic state of the Galaxy while formally incorporating the uncertainties from distances, proper motions, and radial velocities into the final error bars.
+
+*   **Coordinate Transformation:** For every realization, observable data (positions, proper motions, radial velocities) are transformed into a **Galactocentric cylindrical coordinate frame** ($R, \phi, z$) and velocities ($v_R, v_\phi, v_z$). 
+
+*   **Error Propagation:** They propagate measurement errors, assuming no error in positional coordinates but utilizing the _TGAS covariance matrix_ for proper motion errors. Radial velocity errors from RAVE are treated as independent of proper motions.
+
+*   **Spatial Selection and Symmetry:** The analysis focuses on the vertical trend of the gravitational force ($K_z$). Consequently, they only select stars within **0.5 kpc** of the solar radius ($R_\odot$). They assume vertical symmetry and "fold" the data by flipping the signs of $z$ and $v_z$ for stars below the Galactic plane.
+
+*   **Outlier Removal:** Stars are grouped into bins in $z$ (minimum 100 stars per bin). Within each bin, they iteratively remove outliers in $(v_R, v_z, v_\phi)$-space that fall outside a _tilted velocity ellipsoid_ containing 99.994% of a theoretical multivariate Gaussian distribution.
+
+??? note "Elaborated"
+
+    This step is performed within each of the 1,000 realizations to ensure that the final kinematic profiles are not skewed by non-member stars or those with extreme, erroneous measurements.
+
+    The authors perform this step using the following methodology:
+
+    1. **Localized Cleaning in $z$-bins**
+    The outlier removal is not done for the whole sample at once; instead, it is performed **locally within each vertical bin** ($z$).
+
+        *   Each bin is required to have a minimum of **100 stars** to ensure the statistical properties of the bin are well-defined.
+        *   The data in these bins is "folded" across the Galactic plane, treating stars at $-z$ as being at $+z$ to maximize the sample size for each vertical height.
+
+    1. **The 3D Velocity Space**
+        The authors define the _neighborhood_ of acceptable velocities in a three-dimensional space: $(v_R, v_z, v_\phi)$. 
+        *   Unlike simpler filters that might only look at one velocity component at a time, this method looks at how a star moves in all three dimensions simultaneously.
+        *   The boundary for what is considered an outlier is a **tilted velocity ellipsoid**. This 3D shape accounts for the fact that the velocity dispersions are not the same in all directions (e.g., $\sigma_{v_R} \neq \sigma_{v_z}$) and that the axes of the ellipsoid are "tilted" relative to the coordinate system.
+
+    1. **The "Iterative" Nature of the Clipping**
+    The term _iterative_ is key to the robustness of this step. The process might follow this cycle:
+
+        1.  **Initial Calculation:** The mean velocities and the shape of the velocity ellipsoid (covariance) are calculated for all stars currently in the bin.
+        2.  **Comparison:** Every star is checked to see if its velocity vector $(v_R, v_z, v_\phi)$ falls inside the ellipsoid that would contain **99.994%** of stars in a perfect multivariate Gaussian distribution.
+        3.  **Removal:** Stars falling outside this threshold (extreme outliers) are removed.
+        4.  **Repeat:** Because the removal of outliers changes the calculated mean and dispersion of the bin, the ellipsoid is _recalculated_ using the remaining stars, and the process is repeated until no more stars are eliminated.
+
+    4. **Why 99.994%?**
+        This specific threshold is chosen to be extremely conservative. In a standard 1D normal distribution, this percentage corresponds to approximately **$4\sigma$** (four standard deviations). 
+        *   By setting the bar this high, the authors ensure they only remove the most "extreme" outliers—stars that are statistically very unlikely to belong to the core population of the thin or thick disk.
+        *   This prevents the "clipping" from artificially shrinking the natural spread (intrinsic dispersion) of the stellar population, which is the very thing they are trying to measure to find the local dark matter density.
+
+    5. **Conclusion**
+    This step effectively cleans the data of:
+        *   **Halo stars** that might have wandered into a disk sample.
+        *   **Stars with catastrophic measurement errors** in proper motion or radial velocity that survived initial quality cuts.
+        *   **Stars from moving groups or streams** that do not represent the steady-state equilibrium the authors assume in their Jeans modeling.
+
+
+*   **Solving for Intrinsic Moments:** Because measurement errors inflate observed velocity dispersions, the authors solve for the _intrinsic moments_ by maximizing a bivariate Gaussian likelihood function for each bin.
+
+    **Individual Likelihood Function:**
+
+    \[L_i = \frac{1}{\sqrt{\det(2\pi \boldsymbol{\Sigma}_i)}} \exp \left[ -\frac{1}{2}(\vb{x}_i - \boldsymbol{\mu})^T \Sigma_i^{-1} (\vb{x}_i - \boldsymbol{\mu}) \right]\]
+
+    Where $\vb{x}_i = [v_{R,i}, v_{z,i}]$, $\boldsymbol{\mu} = [\langle v_R \rangle, \langle v_z \rangle]$, and the covariance matrix $\Sigma_i$ incorporates both intrinsic dispersions ($\sigma_{\rm intr}$) and individual measurement errors ($\varepsilon_i$):
+
+    \[\boldsymbol{\Sigma}_i = \begin{bmatrix} \sigma^2(v_R)_{\rm intr} + \varepsilon^2(v_{R,i}) & cov(v_R, v_z)_{\rm intr} + cov(v_{R,i}, v_{z,i}) \\ cov(v_R, v_z)_{\rm intr} + cov(v_{R,i}, v_{z,i}) & \sigma^2(v_z)_{\rm intr} + \varepsilon^2(v_{z,i}) \end{bmatrix}\]
+
+    **Total Likelihood Function:**
+
+    \[L = \prod_{i=1}^N L_i\]
+
+*   **MCMC Modeling:** Finally, they utilize _Markov chain Monte Carlo (MCMC)_ to solve for the five intrinsic parameters: mean velocities ($\langle v_R \rangle, \langle v_z \rangle$), intrinsic dispersions ($\sigma(v_R)_{\rm intr}, \sigma(v_z)_{\rm intr}$), and the covariance term ($cov(v_R, v_z)_{\rm intr}$)
+
+---
+
+### Vertical Velocity Dispersion Profiles
+
+This section details how the authors segregate the tracer stars into distinct disk components to satisfy the requirements of their mass model:
+
+1.   **Population Separation:** The authors recognize that the thin and thick disks have different spatial and kinematic distributions. The **thick disk** is characterized as being "hotter" (higher velocity dispersion), having a larger scale height, and being more metal-poor.
+
+1.   **Metallicity Selection:** They test various metallicity ([Fe/H]) boundaries to find clean samples:
+    *   **Thin Disk:** They find that the dispersion profile is insensitive to the exact metallicity cut and adopt $Met\_N\_K \geq -0.25$ dex.
+    *   **Thick Disk:** The dispersion profile for this population is highly sensitive to the upper metallicity boundary due to contamination from the "tail" of the thin disk. To ensure a clean sample while maintaining a sufficient number of stars, they adopt a range of $-1.00 \leq Met\_N\_K \leq -0.50$ dex.
+
+1.   **Mean Profile Computation:** After obtaining intrinsic moments for all 1000 realizations, they compute the **mean and dispersion of these moments** across all realizations. These final profiles account for errors in proper motions, radial velocities, and distance uncertainties.
+
+1.   **Observations:** The resulting profiles show that vertical velocity dispersion $\sigma(v_z)$ increases quicklywith $z$ near the plane, but the variation becomes much shallower above $z \sim 0.5$ kpc, particularly for the thick disk population.
