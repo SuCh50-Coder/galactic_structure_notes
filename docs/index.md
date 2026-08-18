@@ -1,4 +1,5 @@
-# **A Thesis on Galactic Structure** 
+# **A Thesis on Galactic Dynamics** 
+
 
 
 ## **Introduction**
@@ -6,7 +7,13 @@
 
 Nomoskar :folded_hands:
 
-My name is Susnata Chattopadhyay. I am writing this documentation to note all that I learned during my journey of MS Thesis. Our journey official starts in the summer of 2026. I will try to deduce every concept that I learned from the basic principles.
+My name is Susnata Chattopadhyay. This is a documentation to note all that I learned during my journey of my Master's Thesis. I will try to deduce every concept that I learned from the basic principles.
+
+Coming to my thesis, I am working at the Galaxy Dynamics Lab under the Supervision of [Prof. Soumavo Ghosh](https://sites.google.com/view/drsoumavoghosh), IIT Indore. In particular, I am studying the vertical velocity anisotropy and disk flaring of galaxies in a realistic cosmological context. Further, I am trying to understand if those trends (of the same) that are observed in our Milky Way, are also valid universally and their implications on the disk dynamics. 
+
+For my research I am working with MW and Andromeda-like analogues from [TNG50](https://www.tng-project.org/). 
+
+Got any questions? Hit me here:  _sc22ms077@iiserkol.ac.in_
 
 <!-- Our journey official starts in the summer of 2026, amidst the ongoing national student protests against a crippled education system and research of basic sciences. The month is July. -->
 
