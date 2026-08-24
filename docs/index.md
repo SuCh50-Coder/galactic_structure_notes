@@ -1,7 +1,6 @@
 # **A Thesis on Galactic Dynamics** 
 
 
-
 ## **Introduction**
 
 
